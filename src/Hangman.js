@@ -73,7 +73,13 @@ class Hangman extends Component {
     let flag=true;
      for(let i=0;i<this.state.answer.length;i++)
      {
-      flag=this.state.guessed.has(this.state.answer[i]) ? true : false;
+      if(this.state.guessed.has(this.state.answer[i])) 
+      flag= true;
+      else 
+      {
+        flag=false;
+        break;
+      } 
      }
     console.log(flag);
     return (
