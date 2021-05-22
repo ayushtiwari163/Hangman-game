@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { randomWord } from './words';
 
 import "./Hangman.css";
+import "./Level.css"
 import img0 from "./img/0.jpg";
 import img1 from "./img/1.jpg";
 import img2 from "./img/2.jpg";
@@ -19,9 +20,13 @@ class Hangman extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { nWrong: 0, guessed: new Set(), answer: randomWord() };
+    this.state = { nWrong: 0, guessed: new Set(), answer: randomWord(),l1 : false,l2 : false,l3: false };
     this.handleGuess = this.handleGuess.bind(this);
     this.resett = this.resett.bind(this);
+    this.level1 = this.level1.bind(this);
+    this.level2 = this.level2.bind(this);
+    this.level3 = this.level3.bind(this);
+
   }
 
   /** guessedWord: show current-state of word:
@@ -67,6 +72,37 @@ class Hangman extends Component {
       </button>
     ));
   }
+  //level1
+  level1(){
+    let rand1=Math.floor(Math.random()*5);
+    let rand2=rand1;
+    while(rand1===rand2)
+    {
+      rand2=Math.floor(Math.random()*5);
+    }
+    let ltr1=this.state.answer[rand1];
+    // let ltr1=this.state.answer[rand1];
+     let ltr2=this.state.answer[rand2];
+    let set1=new Set([ltr1,ltr2]);
+    this.setState(st=>({
+      guessed: set1,
+      l1 : true
+    }));
+
+  }
+  level2(){
+    let rand1=Math.floor(Math.random()*5);
+    let ltr1=this.state.answer[rand1];
+
+    this.setState(st=>({
+      guessed: st.guessed.add(ltr1),
+      l2 : true
+    }));
+  }
+
+  level3(){
+    this.setState({l3 : true});
+  }
   /** render: render game */
   render() {
     const val=`${this.state.nWrong} out of 6`;
@@ -81,7 +117,8 @@ class Hangman extends Component {
         break;
       } 
      }
-    console.log(flag);
+    if(this.state.l3 || this.state.l2 || this.state.l1)
+     {
     return (
       <div className='Hangman'>
         
@@ -104,6 +141,21 @@ class Hangman extends Component {
       </div>
     );
   }
+
+  //leve2
+ 
+  // this is for intaial page that show button of level
+  else {
+    return(
+      <div>
+      <button className="game-button green" onClick={this.level1}>Level-1</button>
+      <button className="game-button orange" onClick={this.level2}>Level-2</button>
+      <button className="game-button red" onClick={this.level3}>Level-3</button>
+      </div>
+    );
+  }
+}
+
 }
 
 export default Hangman;

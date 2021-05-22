@@ -66,3 +66,14 @@
 #reset:hover {
   background: #7b1fa2;
 }
+#level-1 {
+  width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: #9c27b0;
+  box-shadow: 0 6px #7b1fa2;
+}
+#level-1:hover {
+  background: #7b1fa2;
+}
